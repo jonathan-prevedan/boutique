@@ -1,5 +1,8 @@
 <?php include("functions.php");
-require_once("header.php");?>
+require_once("header.php");
+
+
+?>
 
 
 
@@ -78,6 +81,7 @@ if(isset($_GET['search']))
 
 
 $image=$produit -> images();
+
 
 if(isset($_GET['search']))
 {

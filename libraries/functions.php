@@ -295,11 +295,23 @@ public function souscat()
 			$this->tabsouscat=$tabsouscat;
 			return $tabsouscat;
 }
-
 public function images()
 {
 	$tabimg = [];
-	$img=$this->db()->query("SELECT id_souscat, id_categorie, produits.id, nom, prix, h, l, description, chemin FROM produits, images WHERE produits.id=id_produits");
+	$img=$this->db()->query("SELECT id_souscat, id_categorie, produits.id, nom, prix, h, l, description, chemin FROM produits INNER JOIN images ON produits.id=images.id_produits");
+
+		while($photo = $img->fetch())
+		{
+			array_push($tabimg, $photo);
+		}
+			$this->tabimg=$tabimg;
+			return $tabimg;
+}
+
+public function imagesCat($type)
+{
+	$tabimg = [];
+	$img=$this->db()->query("SELECT id_souscat, id_categorie, produits.id, nom, prix, h, l, description, chemin FROM produits LEFT JOIN images ON produits.id=images.id_produits WHERE produits.id_categorie=\"$type\"");
 
 		while($photo = $img->fetch())
 		{
@@ -336,7 +348,7 @@ public function create_produits($nom,$cat,$souscat,$description,$prix,$img,$haut
 public function produits()
 {
 	$tabpd = [];
-	$numpd = $this->db()->query("SELECT * FROM produits");
+	$numpd = $this->db()->query("SELECT * FROM produits WHERE produits.id_categorie ='".$i."' ");
 
 		while($numero = $numpd->fetch())
 		{

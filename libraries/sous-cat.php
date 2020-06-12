@@ -1,3 +1,12 @@
+<?php
+if(isset($_GET['id']))
+{
+	$type=$_GET['id'];
+}
+
+var_dump($type);
+?>
+
 <!DOCTYPE html>
     <html lang="fr">
 	    <head>
@@ -50,8 +59,10 @@
 	</head>
 
 <body>
-<?php include("functions.php");
-require_once("header.php");?>
+<?php 
+include("functions.php");
+require_once("header.php");
+?>
 
 			</br></br></br>
 <div class="container-fluid">
@@ -60,15 +71,16 @@ require_once("header.php");?>
 		<?php
 		$produit = new product;
 		$tab=$produit -> categorie();
-		$tab1=$produit -> souscat();
+		//$tab1=$produit -> souscat();
+		$tab1=$produit -> imagesCat($type);
+		
 		
 		
 
 			for($i=0; $i < sizeof($tab1); $i++)
 			{
-				
 			?><div class="row justify-content-center">
-			<a href="produits.php?type="><img width="<?php echo $tab1[$i][4];?>" src="<?php echo $tab1[$i][2];?>"><?php echo $tab1[$i][1];?></a>
+			<a href="produits.php?type=<?php echo $tab1[$i][6];?>"><img width="<?php echo $tab1[$i][4];?>" src="<?php echo $tab1[$i][8];?>"><?php echo $tab1[$i][3];?></br></a>
 			</div><?php
 			}
 			?>
